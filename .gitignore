@@ -10,3 +10,4 @@ dist
 build
 .coverage
 .tox/
+nvidia-docker-compose.yml

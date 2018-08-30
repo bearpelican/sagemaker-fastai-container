@@ -1,11 +1,11 @@
-FROM ubuntu:16.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 ARG py_version=3.6
-ARG pytorch_version=0.3.1
+#ARG pytorch_version=0.3.1
 
 # Validate that arguments are specified
 RUN test $py_version || exit 1
-RUN test $pytorch_version || exit 1
+#RUN test $pytorch_version || exit 1
 
 # Install the Ubuntu base packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
          ca-certificates \
          libjpeg-dev \
          libpng-dev \
+         libsm6 \
+         libxext6 \
          nginx \
          jq \
          bc &&\
@@ -29,25 +31,28 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
      rm ~/miniconda.sh
 
 # Install the Fast.ai library and dependencies including Python & Pytorch
-RUN git clone https://github.com/fastai/fastai.git /opt/fastai && \
-    cd /opt/fastai/ && ls && /opt/conda/bin/conda env create -f environment-cpu.yml && \
+RUN git clone https://github.com/mattmcclean/fastai.git /tmp/fastai && \
+    cd /tmp/fastai/ && ls && /opt/conda/bin/conda env create -f environment.yml && \
     if [ $(echo ${py_version}'>3.6' | bc -l) -eq 1 ]; then \
         echo "Installing Python version ${py_version}" && \
         /opt/conda/bin/conda install -y --name fastai python=${py_version}; \
     fi && \  
-    if [ $(echo $(echo ${pytorch_version} | awk '{ print substr($1, 3) }')'>3.1' | bc -l) -eq 1 ]; then \
-        echo "Installing PyTorch version ${pytorch_version}" && \
-        /opt/conda/bin/conda install -y --name fastai pytorch=${pytorch_version}; \
-    fi && \
+    #if [ $(echo $(echo ${pytorch_version} | awk '{ print substr($1, 3) }')'>3.1' | bc -l) -eq 1 ]; then \
+    #    echo "Installing PyTorch version ${pytorch_version}" && \
+    #    /opt/conda/bin/conda install -y --name fastai pytorch=${pytorch_version}; \
+    #fi && \
     /opt/conda/bin/conda install -y --name fastai retrying && \
-    /opt/conda/bin/conda clean -ya
-     
+    /opt/conda/bin/conda clean -ya && \
+    rm -rf /root/.cache/pip/*
+
 # Python won’t try to write .pyc or .pyo files on the import of source modules
 # Force stdin, stdout and stderr to be totally unbuffered. Good for logging
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 ENV PATH /opt/conda/envs/fastai/bin:$PATH
 ENV USER fastai
+
+RUN cd /tmp/fastai && python setup.py bdist_wheel && pip install --no-deps --no-cache /tmp/fastai/dist/fastai-0.7.0-py3-none-any.whl && rm -rf /tmp/fastai
 
 CMD source activate fastai
 CMD source ~/.bashrc
