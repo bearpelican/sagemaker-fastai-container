@@ -1,4 +1,5 @@
-FROM paperspace/fastai:cuda9_pytorch0.3.1.post_2 
+ARG pytorch_version=0.3.1.post_2
+FROM paperspace/fastai:cuda9_pytorch${pytorch_version} 
 
 # install nginx and jq
 RUN apt-get update && apt-get install -y --no-install-recommends \
