@@ -3,8 +3,7 @@
 SageMaker Fastai Container
 ===========================
 
-SageMaker Fastai Container is an open source library for making the fast.ai framework run on Amazon SageMaker. 
-It showcases running the open source library `fastai <https://github.com/fastai/fastai>`__ on Amazon SageMaker.
+SageMaker Fastai Container is an open source library for making the `fast.ai <https://github.com/fastai/fastai>`__  framework run on Amazon SageMaker. 
 
 It is based on the SageMaker PyTorch Container that can be found `here <https://github.com/aws/sagemaker-pytorch-container>`__.
 
@@ -50,8 +49,8 @@ Building your image
 `Amazon SageMaker <https://aws.amazon.com/documentation/sagemaker/>`__
 utilizes Docker containers to run all training jobs & inference endpoints.
 
-The Docker images are built from the Dockerfile specified in
-`Docker/ <https://github.com/aws/sagemaker-fastai-container/tree/master/docker/Dockerfile>`__.
+The Docker images are built from the following 
+`Dockerfile https://github.com/mattmcclean/sagemaker-fastai-container/blob/master/docker/Dockerfile`__.
 
 Dockerfile
 ~~~~~~~~~~~~
@@ -63,13 +62,15 @@ The Dockerfile is based on the Paperspace fast.ai docker image stored in DockerH
 These images are specified with the naming convention of
 fastai-base:<PyTorch_version>-<processor>-py<python_version>.
 
+Before running the Docker build command, first we must bundle the Python source code.
+
 ::
 
     # Create the SageMaker PyTorch Container Python package.
     cd sagemaker-fastai-container
     python setup.py bdist_wheel
 
-If you want to build the Docker image, then use:
+Now we need to build the Docker image, using the commmands:
 
 ::
 
