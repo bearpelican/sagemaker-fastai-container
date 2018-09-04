@@ -59,7 +59,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # fast.ai
 # ------------------------------------------------------------------
 
-
     $PIP_INSTALL \
         git+https://github.com/fastai/fastai.git && \
 

@@ -1,4 +1,4 @@
-FROM fastai-base:0.3.1-gpu-py3
+FROM fastai-base:0.3.1-gpu-py36
 
 # Copy workaround script for incorrect hostname
 COPY lib/changehostname.c /
