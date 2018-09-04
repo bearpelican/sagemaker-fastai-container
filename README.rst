@@ -50,7 +50,7 @@ Building your image
 utilizes Docker containers to run all training jobs & inference endpoints.
 
 The Docker images are built from the following 
-`Dockerfile https://github.com/mattmcclean/sagemaker-fastai-container/blob/master/docker/Dockerfile`__.
+`Dockerfile https://github.com/mattmcclean/sagemaker-fastai-container/blob/master/docker/Dockerfile.final`__.
 
 Dockerfile
 ~~~~~~~~~~~~
