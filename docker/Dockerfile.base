@@ -49,11 +49,18 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ln -s /usr/bin/python3.6 /usr/local/bin/python && \
 
 # ==================================================================
-# fast.ai
+# PyTorch
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl \
+        http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl && \
+
+# ==================================================================
+# fast.ai
+# ------------------------------------------------------------------
+
+
+    $PIP_INSTALL \
         git+https://github.com/fastai/fastai.git && \
 
 # ==================================================================
