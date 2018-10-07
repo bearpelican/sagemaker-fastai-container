@@ -14,7 +14,7 @@ def read(fname):
 setup(
     name='sagemaker_fastai_container',
     version='1.0',
-    description='Open source library for creating Fast.ai containers to run on Amazon SageMaker.',
+    description='Open source library for creating fastai containers to run on Amazon SageMaker.',
 
     packages=find_packages(where='src', exclude=('test',)),
     package_dir={'': 'src'},
@@ -30,12 +30,12 @@ setup(
         "Natural Language :: English",
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 
-    install_requires=['numpy', 'sagemaker-containers==2.1.0', 'torch>=0.3.1', 'retrying', 'six'],
+    install_requires=['numpy', 'sagemaker-containers >= 2.2.0', 'torch-nightly', 'retrying', 'six'],
     extras_require={
         'test': ['tox', 'flake8', 'coverage', 'pytest', 'pytest-cov', 'pytest-xdist', 'mock', 'Flask', 'boto3>=1.4.8',
-                 'docker-compose', 'nvidia-docker-compose', 'sagemaker', 'PyYAML', 'torchvision']
+                 'docker-compose', 'nvidia-docker-compose', 'sagemaker', 'PyYAML', 'torchvision-nightly']
     },
 )
