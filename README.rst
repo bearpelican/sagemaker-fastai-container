@@ -43,7 +43,7 @@ Recommended
    `PyEnv <https://github.com/pyenv/pyenv>`__,
    `VirtualEnv <https://virtualenv.pypa.io/en/stable/>`__)
 
-Building your image
+Building your images
 -------------------
 
 `Amazon SageMaker <https://aws.amazon.com/documentation/sagemaker/>`__
@@ -52,67 +52,13 @@ utilizes Docker containers to run all training jobs & inference endpoints.
 The Docker images are built from the Dockerfiles specified in
 `Docker/ <https://github.com/mattmcclean/sagemaker-fastai-container/tree/master/docker>`__.
 
-Base Images
-~~~~~~~~~~~
+We have a utility script that builds the Docker images on your machine locally and pushes them to your ECR repository.
 
-The "base" Dockerfile encompass the installation of the framework and all of the dependencies
-needed.
-
-Tagging scheme is based on <PyTorch_version>-<processor>-py<python_version>. (e.g. 0.3.1-cpu-py36)
-
-All "final" Dockerfiles build images using base images that use the tagging scheme
-above.
-
-If you want to build your base docker image, then use:
+To build the images run the following script:
 
 ::
 
-    # All build instructions assume you're building from the root directory of the sagemaker-fastai-container.
-
-    docker build -t fastai-base:<PyTorch_version>-cpu-py<python_version> -f docker/base/Dockerfile.base .
-
-::
-
-    # Example
-
-    docker build -t fastai-base:0.3.1-gpu-py36 -f docker/Dockerfile.base .
-
-Final Images
-~~~~~~~~~~~~
-
-The "final" Dockerfiles encompass the installation of the SageMaker specific support code.
-
-All "final" Dockerfiles use `base images for building <https://github.com/mattmcclean/sagemaker-fastai-container/blob/master/docker/Dockerfile.base>`__.
-
-These "base" images are specified with the naming convention of
-fastai-base:<PyTorch_version>-<processor>-py<python_version>.
-
-Before building "final" images:
-
-Build your "base" image. Make sure it is named and tagged in accordance with your "final"
-Dockerfile.
-
-
-::
-
-    # Create the SageMaker fast.ai Container Python package.
-    cd sagemaker-fastai-container
-    python setup.py bdist_wheel
-
-If you want to build "final" Docker images, then use:
-
-::
-
-    # All build instructions assume you're building from the root directory of the sagemaker-fastai-container.
-    
-    docker build -t <image_name>:<tag> -f docker/Dockerfile.final .
-
-::
-
-    # Example
-
-    docker build -t preprod-fastai:0.3.1-gpu-py36 -f docker/Docker.final .
-
+    ./build_and_push.sh
 
 Running the tests
 -----------------
