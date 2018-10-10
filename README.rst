@@ -49,10 +49,9 @@ Building your images
 `Amazon SageMaker <https://aws.amazon.com/documentation/sagemaker/>`__
 utilizes Docker containers to run all training jobs & inference endpoints.
 
-The Docker images are built from the Dockerfiles specified in
-`Docker/ <https://github.com/mattmcclean/sagemaker-fastai-container/tree/master/docker>`__.
+The Docker images are built from the `following Dockerfile <https://github.com/mattmcclean/sagemaker-fastai-container/tree/master/Dockerfile>`__.
 
-We have a utility script that builds the Docker images on your machine locally and pushes them to your ECR repository.
+We have a utility script that builds 2 Docker images, a GPU based image and a CPU based image, on your machine locally and pushes them to your ECR repository.
 
 To build the images run the following script:
 
