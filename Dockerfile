@@ -42,6 +42,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     $PIP_INSTALL \
         torch_nightly -f https://download.pytorch.org/whl/nightly/${ARCH}/torch_nightly.html && \
     $PIP_INSTALL fastai && \
+    $PIP_INSTALL git+https://github.com/bearpelican/sagemaker-containers.git#egg=sagemaker_containers-2.3.5 && \
     ldconfig && \ 
     apt-get clean && \
     apt-get autoremove && \

@@ -33,7 +33,8 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
 
-    install_requires=['numpy', 'sagemaker-containers >= 2.2.0', 'torch-nightly', 'retrying', 'six'],
+    install_requires=['numpy', 'sagemaker-containers==2.3.5', 'torch-nightly', 'retrying', 'six'],
+    dependency_links=['https://github.com/bearpelican/sagemaker-containers/tarball/master#egg=sagemaker_containers-2.3.5'],
     extras_require={
         'test': ['tox', 'flake8', 'coverage', 'pytest', 'pytest-cov', 'pytest-xdist', 'mock', 'Flask', 'boto3>=1.4.8',
                  'docker-compose', 'nvidia-docker-compose', 'sagemaker', 'PyYAML', 'torchvision-nightly']
